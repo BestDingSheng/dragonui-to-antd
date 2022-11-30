@@ -1,0 +1,62 @@
+{
+  "name": "dragonui-to-antd",
+  "displayName": "dragonui-to-antd",
+  "description": "dragon-ui 组件替换成 antd 组件",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BestDingSheng/dragonui-to-antd.git"
+  },
+  "engines": {
+    "vscode": "^1.73.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:toAntd",
+    "onCommand:menuToAntd"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "toAntd",
+        "title": "dragon-ui to antd"
+      },
+      {
+        "command": "menuToAntd",
+        "title": "dragon-ui to antd"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "menuToAntd",
+          "group": "1_modification",
+          "when": "editorFocus"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.73.0",
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "16.x",
+    "eslint": "^8.26.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "typescript": "^4.8.4",
+    "@vscode/test-electron": "^2.2.0"
+  },
+  "dependencies": {
+    "jscodeshift": "^0.14.0",
+    "shelljs": "^0.8.5"
+  }
+}
