@@ -11,6 +11,8 @@ const {
   hasCardNode,
   createCard,
   queryFirstNode,
+  delLibNameAttr,
+  hasComponent,
 } = require("../utils/tools");
 
 const panelTocard = {
@@ -21,38 +23,12 @@ const panelTocard = {
 
 //插入 Card import
 function createImportCard(root, j) {
+  // 判断当前页面是否引入了 Card 组件
   const hasCardResult = hasCardNode(root, j);
   if (hasCardResult) return false;
   const FIRST_IMPORT = queryFirstNode(root, j);
   const cardAst = createCard(j);
   FIRST_IMPORT.insertAfter(cardAst);
-}
-
-// 删除 dragon import 中 panel 的属性
-function delLibNameAttr(root, j, libName, attrName) {
-  // 判断是否只有一个
-  const libNamePath = root.find(j.ImportDeclaration, {
-    source: {
-      value: libName,
-    },
-  });
-  // 如果没找到的话那么就不忘下面走了
-  if (libNamePath.length === 0) return false;
-  const libnode = libNamePath.get();
-  const { specifiers = [] } = libnode.value;
-  const hasOneSpecifiers = specifiers.length === 1;
-  const panelPath = libNamePath.find(j.ImportSpecifier, {
-    imported: {
-      name: attrName,
-    },
-  });
-  const hasAttrName = panelPath.length === 1;
-  if (hasOneSpecifiers && hasAttrName) {
-    // 如果只有 { panel } 那么直接删除 整条 import
-    libNamePath.remove();
-  } else {
-    panelPath.remove();
-  }
 }
 
 // 获取全部属性的子元素
@@ -86,6 +62,10 @@ function createAttrNode(options) {
 
 // panel 替换成 card
 function replacePanel(root, j) {
+  const { hasComponentPath: hasDragonPanel } =
+    hasComponent(root, j, "dragon-ui", "Panel") || {};
+  // 如果当前引入的没有 dragon-ui Button 的话就不往下面走了
+  if (!hasDragonPanel) return false;
   // 引入 Card
   createImportCard(root, j);
   // 删除 panel

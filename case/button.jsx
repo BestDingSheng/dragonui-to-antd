@@ -1,17 +1,8 @@
-const Button = () => {
+import { Button } from "dragon-ui";
+
+const Home = () => {
   return (
-    <Button
-      theme="info"
-      isLoading={ding}
-      onClick={() => {
-        this.setState({
-          investigateTaskQuery: {
-            pageSize: 10,
-            currentPage: 1,
-          },
-        });
-      }}
-    >
+    <Button theme="info" isDisabled={isDisabled} isLoading={loading}>
       2134
     </Button>
   );

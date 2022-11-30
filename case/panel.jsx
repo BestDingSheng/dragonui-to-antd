@@ -1,3 +1,5 @@
+import { Panel } from "dragon-ui";
+
 const Panel = () => {
   return (
     <Panel className="investigateTask-form">

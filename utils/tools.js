@@ -120,8 +120,8 @@ function libnameAddComponent(root, j, libname, component) {
   if (!reulst) {
     const FIRST_IMPORT = queryFirstNode(root, j);
     const buttonAntdAst = j.importDeclaration(
-      [j.importSpecifier(j.identifier("Button"), j.identifier("Button"))],
-      j.stringLiteral("antd")
+      [j.importSpecifier(j.identifier(component), j.identifier(component))],
+      j.stringLiteral(libname)
     );
     FIRST_IMPORT.insertAfter(buttonAntdAst);
     return false;

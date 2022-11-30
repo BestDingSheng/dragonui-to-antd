@@ -20,10 +20,10 @@ function replaceButton(root, j) {
     hasComponent(root, j, "dragon-ui", "Button") || {};
   // 如果当前引入的没有 dragon-ui Button 的话就不往下面走了
   if (!hasDragonButton) return false;
-  // 删除 dragon-ui Button
-  delLibNameAttr(root, j, "dragon-ui", "Button");
   // 添加 antd button
   libnameAddComponent(root, j, "antd", "Button");
+  // 删除 dragon-ui Button
+  delLibNameAttr(root, j, "dragon-ui", "Button");
   const getPanelElements = root.findJSXElements("Button");
   getPanelElements.forEach((path) => {
     const currentPath = j(path);
@@ -36,6 +36,7 @@ function replaceButton(root, j) {
           item.name.name = buttonAttr[name];
         }
       });
+      // 过滤出 buttonDelAttr 中的属性
       const newattributes = attributes.filter((item) => {
         const { name } = item.name;
         return !buttonDelAttr.includes(name);
