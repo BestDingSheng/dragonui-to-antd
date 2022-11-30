@@ -3,7 +3,7 @@
   "displayName": "dragonui-to-antd",
   "description": "dragon-ui 组件替换成 antd 组件",
   "version": "0.0.1",
-  "publisher": "dingshng",
+  "publisher": "dingsheng",
   "repository": {
     "type": "git",
     "url": "https://github.com/BestDingSheng/dragonui-to-antd.git"
