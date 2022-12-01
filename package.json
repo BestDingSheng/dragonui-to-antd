@@ -2,7 +2,7 @@
   "name": "dragonui-to-antd",
   "displayName": "dragonui-to-antd",
   "description": "dragon-ui 组件替换成 antd 组件",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "dingsheng",
   "repository": {
     "type": "git",
