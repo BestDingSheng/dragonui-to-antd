@@ -5,8 +5,8 @@ const replaceModal = require("./modal");
 module.exports = function (file, api, options) {
   const j = api.jscodeshift;
   const root = j(file.source);
-  // replacePanel(root, j);
-  // replaceButton(root, j);
+  replacePanel(root, j);
+  replaceButton(root, j);
   replaceModal(root, j);
   return root.toSource({
     // arrayBracketSpacing: true,
