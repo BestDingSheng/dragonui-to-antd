@@ -159,8 +159,6 @@ function createStringLiteral(j, value) {
   return j.stringLiteral(item.value);
 }
 
-// j.stringLiteral("dingsheng")
-
 // 创建属性节点
 function createPrototyNode(j, name, value) {
   const isOneValue = value.length === 1;

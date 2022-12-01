@@ -33,6 +33,7 @@ function replaceButton(root, j) {
       attributes.forEach((item) => {
         let { name } = item.name;
         if (buttonAttrList.includes(name)) {
+          // 替换属性名称
           item.name.name = buttonAttr[name];
         }
       });

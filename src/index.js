@@ -20,7 +20,7 @@ async function Run() {
   let filePath = null;
   if (!vscode) {
     filePath =
-      "/Users/dingsheng/Desktop/opensource/vscode-ast-plugin/case/button.jsx";
+      "/Users/dingsheng/Desktop/opensource/vscode-ast-plugin/case/modal.jsx";
   } else {
     filePath = vscode.window.activeTextEditor.document.fileName;
   }

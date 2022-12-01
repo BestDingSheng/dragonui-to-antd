@@ -10,10 +10,12 @@
 
 - Panel
 - Button
+- Modal
+  - 如果 modal 上有解构的属性的话，那就不支持 替换
 
 ## 案列
 
-转换前
+Button 转换前
 
 ```jsx
 import { Button } from "dragon-ui";
@@ -41,7 +43,7 @@ const Home = () => {
 };
 ```
 
-panel 转换前
+Panel 转换前
 
 ```jsx
 import { Panel } from "dragon-ui";
@@ -105,4 +107,90 @@ const Home = () => {
 };
 
 export default Home;
+```
+
+Modal 替换前
+
+```jsx
+import { Modal } from "dragon-ui";
+
+const Home = () => {
+  return (
+    <Modal visible={isRiskRulesVisible} width={1200}>
+      <Modal.Header title="警告" onClose={this.handleCloseRiskRules} />
+      <Modal.Body>
+        <NewRiskRulesCollapse
+          isDataEntry
+          isCloseCase
+          billInfo={this.billInfo}
+          caseInfoDom={this.caseInfoDom}
+          riskRules={riskRules}
+          updateFlg={updateFlg}
+        />
+      </Modal.Body>
+      <Modal.Footer>
+        {hasErrorRules && [
+          <Button onClick={this.handleCloseRiskRules}>返回</Button>,
+        ]}
+        {!hasErrorRules && [
+          <Button key="cancel" onClick={this.handleCloseRiskRules}>
+            取消
+          </Button>,
+          <Button
+            key="confirm"
+            theme="info"
+            onClick={this.handleConfirmRiksRules}
+          >
+            确认
+          </Button>,
+        ]}
+      </Modal.Footer>
+    </Modal>
+  );
+};
+```
+
+替换后
+
+```jsx
+import { Modal } from "antd";
+
+const Home = () => {
+  return (
+    <Modal
+      visible={isRiskRulesVisible}
+      width={1200}
+      title="警告"
+      onCancel={this.handleCloseRiskRules}
+      footer={
+        <>
+          {hasErrorRules && [
+            <Button onClick={this.handleCloseRiskRules}>返回</Button>,
+          ]}
+          {!hasErrorRules && [
+            <Button key="cancel" onClick={this.handleCloseRiskRules}>
+              取消
+            </Button>,
+            <Button
+              key="confirm"
+              theme="info"
+              onClick={this.handleConfirmRiksRules}
+            >
+              确认
+            </Button>,
+          ]}
+        </>
+      }
+    >
+      <NewRiskRulesCollapse
+        isDataEntry
+        isCloseCase
+        billInfo={this.billInfo}
+        caseInfoDom={this.caseInfoDom}
+        riskRules={riskRules}
+        updateFlg={updateFlg}
+      />
+    </Modal>
+  );
+};
 ```
