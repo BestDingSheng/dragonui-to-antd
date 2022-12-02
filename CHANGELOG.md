@@ -8,6 +8,12 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Initial release
 
+## [0.0.5] - 2022-12-02 12:17:40
+
+### Fixed
+
+- 修复会多次引入 Button 组件 bug
+
 ## [0.0.4] - 2022-12-01 16:26:35
 
 ### Added
