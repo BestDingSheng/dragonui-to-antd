@@ -159,13 +159,23 @@ function createStringLiteral(j, value) {
   const [item] = value;
   return j.stringLiteral(item.value);
 }
+// 当 value 只有一个的时候
+function createOneValue(j, value) {
+  // 判断下类型 是否是 表达式 如果是 直接返回
+  const [item] = value;
+  if (item.type === "JSXExpressionContainer") {
+    return item;
+  }
+
+  return createStringLiteral(j, value);
+}
 
 // 创建属性节点
 function createPrototyNode(j, name, value) {
   const isOneValue = value.length === 1;
   const proName = createPrototyName(j, name);
   const createValue = isOneValue
-    ? createStringLiteral(j, value)
+    ? createOneValue(j, value)
     : createFragementElement(j, value);
   // 创建属性
   return j.jsxAttribute(
