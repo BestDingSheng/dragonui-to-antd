@@ -6,6 +6,8 @@ const {
   libnameAddComponent,
 } = require("../utils/tools");
 
+const { log } = require("../utils/env");
+
 /**
  * 1 获取 Modal 上的属性
  * 2 获取 Modal.Header 上的属性
@@ -86,7 +88,8 @@ function replacePanel(root, j) {
       (item) => item.type === "JSXSpreadAttribute"
     );
     if (hasJSXSpreadAttribute) {
-      console.log("当前 modal 上有解构的属性 不支持替换");
+      log("当前 modal 上有解构的属性 不支持替换");
+      process.exit(1);
       return false;
     }
     // 修改属性

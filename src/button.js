@@ -10,6 +10,7 @@ const buttonAttr = {
   isDisabled: "disabled",
 };
 const buttonDelAttr = ["size", "theme"];
+const { log } = require("../utils/env");
 
 // 1 判断 dragon 是否包含 Button
 // 2 判断 antd 是否包含 Button
@@ -27,11 +28,22 @@ function replaceButton(root, j) {
   delLibNameAttr(root, j, "dragon-ui", "Button");
   const getPanelElements = root.findJSXElements("Button");
   getPanelElements.forEach((path) => {
+    const buttonAllProps = path.value.openingElement.attributes;
+    const hasJSXSpreadAttribute = buttonAllProps.some(
+      (item) => item.type === "JSXSpreadAttribute"
+    );
+    debugger;
+    if (hasJSXSpreadAttribute) {
+      log("当前文件 Button 上有解构的属性 不支持替换");
+      process.exit(1);
+      return false;
+    }
     const currentPath = j(path);
     const openPath = currentPath.find(j.JSXOpeningElement);
     openPath.replaceWith((node) => {
       let typeAst = [];
       let { attributes = [] } = node.value;
+
       // 替换属性名称
       attributes.forEach((item) => {
         let { name } = item.name;

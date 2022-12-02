@@ -7,9 +7,9 @@ try {
 function log(value) {
   if (vscode) {
     vscode.window.showInformationMessage(value);
-    return false;
+  } else {
+    console.log("---- logs:", value);
   }
-  console.log("---- logs:", value);
 }
 
 function getFormatFilePath() {

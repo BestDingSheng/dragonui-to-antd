@@ -2,9 +2,12 @@
 import { Button } from "dragon-ui";
 
 const Home = () => {
-  return (
+  return [
+    <Button {...a} theme="info" isDisabled={isDisabled} isLoading={loading}>
+      2134
+    </Button>,
     <Button theme="info" isDisabled={isDisabled} isLoading={loading}>
       2134
-    </Button>
-  );
+    </Button>,
+  ];
 };
