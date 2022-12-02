@@ -1,11 +1,6 @@
-const { run: jscodeshift } = require("jscodeshift/src/Runner");
 const path = require("path");
-let vscode = null;
-try {
-  vscode = require("vscode");
-} catch (e) {
-  // console.log(e);
-}
+const { run: jscodeshift } = require("jscodeshift/src/Runner");
+const { log, getFormatFilePath } = require("../utils/env");
 
 const options = {
   dry: false, // 是否对文件进行修改 true 不修改 false 修改
@@ -17,36 +12,27 @@ const options = {
 const transformPath = path.resolve(__dirname, "./transform.js");
 
 async function Run() {
-  let filePath = null;
-  if (!vscode) {
-    filePath =
-      // "/Users/dingsheng/Desktop/opensource/vscode-ast-plugin/case/modal.jsx";
-      "/Users/dingsheng/Desktop/opensource/vscode-ast-plugin/case/test.jsx";
-  } else {
-    filePath = vscode.window.activeTextEditor.document.fileName;
-  }
-  console.log(filePath);
+  let filePath = getFormatFilePath();
   if (!filePath) return false;
-  const res = await jscodeshift(transformPath, [filePath], options);
-  const { ok, nochange } = res;
-  if (vscode) {
+  try {
+    // 内部已经捕获了错误 ，错误信息不回传到这里
+    const res = await jscodeshift(transformPath, [filePath], options);
+    const { ok, nochange } = res;
     if (ok === 1) {
-      vscode.window.showInformationMessage("格式化成功");
+      log("格式化成功");
       return false;
     }
     if (nochange === 1) {
-      vscode.window.showInformationMessage("没有可以修改的内容");
+      log("没有可以修改的内容");
       return false;
     }
-    vscode.window.showInformationMessage("操作失败");
-  }
+    log("操作失败");
+  } catch (e) {}
 
   // child.exec(`npx jscodeshift ${filePath} --dry --print filePath --transform=${transformPath}`, function(err, sto) {
   // 	console.log(sto);//sto才是真正的输出，要不要打印到控制台，由你自己啊
   // })
 }
-
-Run();
 
 module.exports = function () {
   Run();
