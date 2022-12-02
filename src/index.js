@@ -20,7 +20,8 @@ async function Run() {
   let filePath = null;
   if (!vscode) {
     filePath =
-      "/Users/dingsheng/Desktop/opensource/vscode-ast-plugin/case/modal.jsx";
+      // "/Users/dingsheng/Desktop/opensource/vscode-ast-plugin/case/modal.jsx";
+      "/Users/dingsheng/Desktop/opensource/vscode-ast-plugin/case/test.jsx";
   } else {
     filePath = vscode.window.activeTextEditor.document.fileName;
   }
@@ -45,7 +46,7 @@ async function Run() {
   // })
 }
 
-// Run();
+Run();
 
 module.exports = function () {
   Run();
