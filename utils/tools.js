@@ -126,11 +126,12 @@ function libnameAddComponent(root, j, libname, component) {
     FIRST_IMPORT.insertAfter(buttonAntdAst);
     return false;
   }
+  //
   reulst.libname.replaceWith((node) => {
     let { specifiers } = node.value;
     const buttonAst = j.importSpecifier(
-      j.identifier("Button"),
-      j.identifier("Button")
+      j.identifier(component),
+      j.identifier(component)
     );
     let newSpecifiers = [...specifiers, buttonAst];
     node.value.specifiers = newSpecifiers;
