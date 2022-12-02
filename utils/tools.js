@@ -186,6 +186,18 @@ function createPrototyNode(j, name, value) {
   );
 }
 
+// 创建字符串属性节点
+
+function createStringPropsAst(j, name, value) {
+  const proName = createPrototyName(j, name);
+  const createValue = j.stringLiteral(value);
+  return j.jsxAttribute(
+    // name
+    proName,
+    createValue
+  );
+}
+
 // 添加导入属性 import {Modal} from 'antd'
 function addImportAttr(root, j, libName, attrName) {
   const libNamePath = root.find(j.ImportDeclaration, {
@@ -220,4 +232,5 @@ module.exports = {
   hasComponent,
   delLibNameAttr,
   libnameAddComponent,
+  createStringPropsAst,
 };

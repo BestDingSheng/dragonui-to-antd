@@ -2,6 +2,7 @@ const {
   hasComponent,
   delLibNameAttr,
   libnameAddComponent,
+  createStringPropsAst,
 } = require("../utils/tools");
 const buttonAttrList = ["isLoading", "isDisabled"];
 const buttonAttr = {
@@ -29,12 +30,18 @@ function replaceButton(root, j) {
     const currentPath = j(path);
     const openPath = currentPath.find(j.JSXOpeningElement);
     openPath.replaceWith((node) => {
+      let typeAst = [];
       let { attributes = [] } = node.value;
+      // 替换属性名称
       attributes.forEach((item) => {
         let { name } = item.name;
+        let { value } = item.value;
         if (buttonAttrList.includes(name)) {
-          // 替换属性名称
           item.name.name = buttonAttr[name];
+        }
+        // 判断是否有 theme 不等于 default 的属性
+        if (name === "theme" && value !== "default") {
+          typeAst = [createStringPropsAst(j, "type", "primary")];
         }
       });
       // 过滤出 buttonDelAttr 中的属性
@@ -42,7 +49,7 @@ function replaceButton(root, j) {
         const { name } = item.name;
         return !buttonDelAttr.includes(name);
       });
-      node.value.attributes = newattributes;
+      node.value.attributes = [...typeAst, ...newattributes];
       return node.value;
     });
   });
