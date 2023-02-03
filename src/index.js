@@ -1,20 +1,29 @@
 const path = require("path");
 const { run: jscodeshift } = require("jscodeshift/src/Runner");
-const { log, getFormatFilePath } = require("../utils/env");
+const { log, getFormatFilePath, getFileType } = require("../utils/env");
 // const child_process = require("child_process");
 
-const options = {
-  dry: false, // 是否对文件进行修改 true 不修改 false 修改
-  print: false, // 是否将转换后的信息打印出来
-  verbose: 2, // 格式化信息
-  // ...
+const parserMap = {
+  jsx: "babel",
+  js: "babel",
+  ts: "tsx",
+  tsx: "tsx",
 };
 
 const transformPath = path.resolve(__dirname, "./transform.js");
 
 async function Run() {
-  let filePath = getFormatFilePath();
+  const fileType = getFileType();
+  const filePath = getFormatFilePath();
   if (!filePath) return false;
+  const parserValue = parserMap[fileType] || "babel";
+  const options = {
+    dry: false, // 是否对文件进行修改 true 不修改 false 修改
+    print: false, // 是否将转换后的信息打印出来
+    verbose: 2, // 格式化信息
+    parser: parserValue,
+    // ...
+  };
 
   const res = await jscodeshift(transformPath, [filePath], options);
   const { ok, nochange } = res;

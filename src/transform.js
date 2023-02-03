@@ -1,6 +1,7 @@
 const replaceButton = require("./button");
 const replacePanel = require("./panel");
 const replaceModal = require("./modal");
+const { getFileType } = require("../utils/env");
 
 module.exports = function (file, api, options) {
   const j = api.jscodeshift;
@@ -15,3 +16,5 @@ module.exports = function (file, api, options) {
     // flowObjectCommas: true,
   });
 };
+
+// module.exports.parser = "tsx";
