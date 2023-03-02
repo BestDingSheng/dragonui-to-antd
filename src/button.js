@@ -9,7 +9,7 @@ const buttonAttr = {
   isLoading: "loading",
   isDisabled: "disabled",
 };
-const buttonDelAttr = ["size", "theme"];
+const buttonDelAttr = ["size", "theme", "radius"];
 const { log } = require("../utils/env");
 
 // 1 判断 dragon 是否包含 Button
@@ -47,7 +47,8 @@ function replaceButton(root, j) {
       // 替换属性名称
       attributes.forEach((item) => {
         let { name } = item.name;
-        let { value } = item.value;
+        debugger;
+        let { value } = item.value || {}; // 如果属性没值的话 是没有 item.value 是 null
         if (buttonAttrList.includes(name)) {
           item.name.name = buttonAttr[name];
         }
